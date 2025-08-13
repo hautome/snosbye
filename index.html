@@ -1,145 +1,59 @@
 <!DOCTYPE html>
-<html lang="ru"> <!-- Изменил язык на русский -->
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ловушка для Рикролла</title> <!-- Обновленный заголовок -->
+    <title>Ловушка для Рикролла</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%; /* Убедимся, что html и body занимают 100% высоты */
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
-            background-color: #000;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            color: #fff;
-            /* height: 100vh; Убираем, так как html, body уже 100% */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-image:
-                radial-gradient(circle, white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(circle, white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(circle, white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-color: #000; overflow: hidden; font-family: 'Arial', sans-serif; color: #fff;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            background-image: radial-gradient(circle, white, rgba(255,255,255,.2) 2px, transparent 40px),
+                              radial-gradient(circle, white, rgba(255,255,255,.15) 1px, transparent 30px),
+                              radial-gradient(circle, white, rgba(255,255,255,.1) 2px, transparent 40px);
             background-size: 550px 550px, 350px 350px, 250px 250px;
-            animation: backgroundMove 20s linear infinite;
-            cursor: pointer; /* Курсор для всего body */
+            animation: backgroundMove 20s linear infinite; cursor: pointer;
         }
-
         #welcome-screen {
-            text-align: center;
-            z-index: 10;
-            padding: 20px;
-            border-radius: 15px;
-            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для контраста */
+            text-align: center; z-index: 10; padding: 20px;
+            border-radius: 15px; background-color: rgba(0, 0, 0, 0.5);
         }
-
-        /* Стили для изображения котика */
         #cat-image {
-            max-width: 90vw;
-            max-height: 50vh;
-            border-radius: 20px;
+            max-width: 90vw; max-height: 50vh; border-radius: 20px;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 20px; /* Отступ снизу */
-        }
-
-        #cat-image:hover {
-             transform: scale(1.05);
-             box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ff0080; /* Розовое свечение */
-            animation: pulse 2s infinite;
-        }
-
-         p {
-            font-size: 1.8rem;
             margin-bottom: 20px;
-            text-shadow: 0 0 5px #00ffff; /* Голубое свечение */
         }
-
+        #cat-image:hover {
+             transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+        }
+        h1 { font-size: 3rem; margin-bottom: 15px; text-shadow: 0 0 10px #ff0080; animation: pulse 2s infinite; }
+        p { font-size: 1.8rem; margin-bottom: 20px; text-shadow: 0 0 5px #00ffff; }
         button {
-            background: linear-gradient(45deg, #ff0080, #00ffff); /* Градиентная кнопка */
-            color: #fff;
-            border: none; /* Убираем стандартную рамку */
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            border-radius: 30px; /* Круглые углы */
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px rgba(255, 0, 128, 0.7); /* Тень кнопки */
+            background: linear-gradient(45deg, #ff0080, #00ffff); color: #fff; border: none;
+            padding: 15px 30px; font-size: 1.5rem; cursor: pointer; border-radius: 30px;
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.7);
         }
-
-        button:hover {
-            transform: scale(1.1) rotate(5deg); /* Увеличение и легкий поворот */
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.9); /* Усиленная тень */
-        }
-
-        #video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none;
-            z-index: 5;
-        }
-
-        /* Стили для iframe, чтобы он корректно растягивался */
-        #video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none; /* Убираем рамку iframe */
-        }
-
+        button:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 25px rgba(0, 255, 255, 0.9); }
+        #video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 5; }
+        #video-container iframe { width: 100%; height: 100%; border: none; }
         @keyframes pulse {
             0% { opacity: 0.4; transform: scale(0.95); }
             50% { opacity: 1; transform: scale(1); }
             100% { opacity: 0.4; transform: scale(0.95); }
         }
-
         @keyframes backgroundMove {
-            0% {
-                background-position: 0 0, 40px 60px, 130px 270px;
-            }
-            100% {
-                background-position: 550px 550px, 390px 410px, 380px 520px;
-            }
+            0% { background-position: 0 0, 40px 60px, 130px 270px; }
+            100% { background-position: 550px 550px, 390px 410px, 380px 520px; }
         }
-
         .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
+            position: absolute; background-color: white; border-radius: 50%;
             animation: twinkle var(--duration) infinite ease-in-out;
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        /* Стиль для сообщения об ошибке */
-        #error-message {
-            color: red;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            display: none; /* Скрыто по умолчанию */
-        }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -149,92 +63,40 @@
         <h1>ТЫКОВЕНЬ НА КОТИКА!</h1>
         <p>НЕ ПОЖАЛЕЕШЬ ;)</p>
         <button id="start-button">ИЛИ НА ЭТУ КНОПОЧКУ</button>
-        <div id="error-message">Упс! Что-то пошло не так. Попробуй перезагрузить страницу.</div>
     </div>
-
     <div id="video-container"></div>
 
     <script>
-        // Создаем звезды
         function createStars() {
             const body = document.body;
             const starsCount = 200;
-
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-
-                // Случайный размер звезды
                 const size = Math.random() * 3;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-
-                // Случайная позиция
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-
-                // Случайная анимация
+                star.style.width = `${size}px`; star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`; star.style.top = `${Math.random() * 100}%`;
                 const duration = Math.random() * 3 + 1;
                 star.style.setProperty('--duration', `${duration}s`);
-
                 body.appendChild(star);
             }
         }
-
-        // Инициализация звезд
         createStars();
 
-        // Функция для запуска видео
-        function playVideo() {
-            const welcomeScreen = document.getElementById('welcome-screen');
+        document.getElementById('start-button').addEventListener('click', function() {
+            document.getElementById('welcome-screen').style.display = 'none';
             const videoContainer = document.getElementById('video-container');
-            const errorMessage = document.getElementById('error-message');
-
-            try {
-                // Скрываем приветственный экран
-                welcomeScreen.style.display = 'none';
-
-                // Показываем видео контейнер
-                videoContainer.style.display = 'block';
-
-                // --- ВАЖНО: ВСТАВЬ СЮДА СВОЮ ССЫЛКУ VK ---
-                const vkVideoUrl = "https://vk.com/video_ext.php?oid=7266823&id=78234740&hash=5a7b8c9d1e2f3a4b&hd=2&autoplay=1";
-
-                // Создаем iframe с видео VK
-                // Используем шаблонные строки (backticks) для корректного формирования HTML
-                videoContainer.innerHTML = `
-                    <iframe
-                        src="${vkVideoUrl}"
-                        title="VK Video"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                `;
-            } catch (error) {
-                console.error("Ошибка при попытке воспроизвести видео:", error);
-                // Показываем экран приветствия снова
-                welcomeScreen.style.display = 'block';
-                // Показываем сообщение об ошибке
-                errorMessage.style.display = 'block';
-                // Скрываем видео контейнер на случай, если он был показан
-                videoContainer.style.display = 'none';
-            }
-        }
-
-        // Обработчик клика на кнопку
-        document.getElementById('start-button').addEventListener('click', playVideo);
-
-        // Обработчик клика на изображение котика
-        document.getElementById('cat-image').addEventListener('click', playVideo);
-
-        // Обработчик клика на весь body (опционально)
-        // document.body.addEventListener('click', function(event) {
-        //     // Проверяем, что клик был именно на body, а не на дочерних элементах
-        //     if (event.target === document.body) {
-        //         playVideo();
-        //     }
-        // });
-
+            videoContainer.style.display = 'block';
+            // ВАЖНО: Убедись, что ссылка ниже именно твоя, рабочая ссылка от VK
+            videoContainer.innerHTML = `
+                <iframe src="https://vk.com/video_ext.php?oid=7266823&id=78234740&hash=5a7b8c9d1e2f3a4b&hd=2&autoplay=1" 
+                        title="VK Video" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>`;
+        });
+         document.getElementById('cat-image').addEventListener('click', function() {
+             document.getElementById('start-button').click(); // Имитируем клик по кнопке
+         });
     </script>
 </body>
 </html>

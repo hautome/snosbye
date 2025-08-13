@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background-color: #000;
             overflow: hidden;
@@ -22,32 +21,32 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-image: 
+            background-image:
                 radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
                 radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
                 radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
             background-size: 550px 550px, 350px 350px, 250px 250px;
             animation: backgroundMove 20s linear infinite;
         }
-        
+
         #welcome-screen {
             text-align: center;
             z-index: 10;
         }
-        
+
         h1 {
             font-size: 4rem;
             margin-bottom: 20px;
             text-shadow: 0 0 10px #fff;
             animation: pulse 2s infinite;
         }
-        
+
         p {
             font-size: 2rem;
             margin-bottom: 30px;
             text-shadow: 0 0 5px #fff;
         }
-        
+
         button {
             background: transparent;
             color: #fff;
@@ -60,13 +59,13 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        
+
         button:hover {
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 20px #fff;
             transform: scale(1.05);
         }
-        
+
         #video-container {
             position: fixed;
             top: 0;
@@ -76,13 +75,19 @@
             display: none;
             z-index: 5;
         }
-        
+
+        /* Стили для iframe, чтобы он корректно растягивался */
+        #video-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+
         @keyframes pulse {
             0% { opacity: 0.3; }
             50% { opacity: 1; }
             100% { opacity: 0.3; }
         }
-        
+
         @keyframes backgroundMove {
             0% {
                 background-position: 0 0, 40px 60px, 130px 270px;
@@ -91,14 +96,14 @@
                 background-position: 550px 550px, 390px 410px, 380px 520px;
             }
         }
-        
+
         .star {
             position: absolute;
             background-color: white;
             border-radius: 50%;
             animation: twinkle var(--duration) infinite ease-in-out;
         }
-        
+
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
@@ -111,7 +116,7 @@
         <p>CLICK PLS</p>
         <button id="start-button">START</button>
     </div>
-    
+
     <div id="video-container"></div>
 
     <script>
@@ -119,49 +124,49 @@
         function createStars() {
             const body = document.body;
             const starsCount = 200;
-            
+
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
+
                 // Случайный размер звезды
                 const size = Math.random() * 3;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
-                
+
                 // Случайная позиция
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
-                
+
                 // Случайная анимация
                 star.style.setProperty('--duration', `${Math.random() * 3 + 1}s`);
-                
+
                 body.appendChild(star);
             }
         }
-        
+
         // Инициализация звезд
         createStars();
-        
+
         // Обработчик кнопки
         document.getElementById('start-button').addEventListener('click', function() {
             const welcomeScreen = document.getElementById('welcome-screen');
             const videoContainer = document.getElementById('video-container');
-            
+
             // Скрываем приветственный экран
             welcomeScreen.style.display = 'none';
-            
+
             // Показываем видео
             videoContainer.style.display = 'block';
-            
-            // Создаем iframe с Rickroll из VK
+
+            // Создаем iframe с Rickroll из YouTube
+            // Используем современный URL для встраивания и добавляем autoplay=1
             videoContainer.innerHTML = `
-                <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src="https://vk.com/video_ext.php?oid=7266823&id=78234740&hash=5a7b8c9d1e2f3a4b&hd=2&autoplay=1" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0"
+                    title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
                 </iframe>
             `;
@@ -169,4 +174,3 @@
     </script>
 </body>
 </html>
-```

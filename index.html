@@ -27,23 +27,50 @@
                 radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
             background-size: 550px 550px, 350px 350px, 250px 250px;
             animation: backgroundMove 20s linear infinite;
+            cursor: pointer; /* Указываем, что клик работает по всему body */
         }
 
         #welcome-screen {
             text-align: center;
             z-index: 10;
+            cursor: pointer; /* Указываем, что клик работает */
         }
 
+        /* Стили для изображения котика */
+        #cat-image {
+            max-width: 90vw; /* Максимальная ширина 90% от ширины экрана */
+            max-height: 70vh; /* Максимальная высота 70% от высоты экрана */
+            border-radius: 20px; /* Скругленные углы */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); /* Свечение */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+        }
+
+        #cat-image:hover {
+             transform: scale(1.05); /* Увеличение при наведении */
+             box-shadow: 0 0 40px rgba(255, 255, 255, 0.8); /* Усиление свечения */
+        }
+
+
+        /* Скрытие текста, если хочешь только картинку
+        h1, p {
+            display: none;
+        }
+        button {
+             display: none;
+        }
+        */
+
+        /* Если оставляем текст и кнопку, но делаем их круче */
         h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 3rem; /* Немного уменьшил */
+            margin-bottom: 15px;
             text-shadow: 0 0 10px #fff;
             animation: pulse 2s infinite;
         }
 
-        p {
-            font-size: 2rem;
-            margin-bottom: 30px;
+         p {
+            font-size: 1.8rem; /* Немного уменьшил */
+            margin-bottom: 20px;
             text-shadow: 0 0 5px #fff;
         }
 
@@ -51,8 +78,8 @@
             background: transparent;
             color: #fff;
             border: 2px solid #fff;
-            padding: 15px 30px;
-            font-size: 1.5rem;
+            padding: 12px 25px; /* Немного уменьшил */
+            font-size: 1.3rem; /* Немного уменьшил */
             cursor: pointer;
             border-radius: 5px;
             transition: all 0.3s;
@@ -112,9 +139,11 @@
 </head>
 <body>
     <div id="welcome-screen">
-        <h1>HELLO</h1>
-        <p>CLICK PLS</p>
-        <button id="start-button">START</button>
+        <!-- Замените URL ниже на прямую ссылку на изображение котика -->
+        <img src="https://i.imgur.com/sfZqVGY.jpeg" alt="Cute Cat - Click Me!" id="cat-image">
+        <h1>ТЫКОВЕНЬ НА КОТИКА</h1>
+        <p>НЕ ПОЖАЛЕЕШЬ</p>
+        <button id="start-button">ИЛИ НА ЭТУ КНОПОЧКУ</button>
     </div>
 
     <div id="video-container"></div>
@@ -148,8 +177,8 @@
         // Инициализация звезд
         createStars();
 
-        // Обработчик кнопки
-        document.getElementById('start-button').addEventListener('click', function() {
+        // Функция для запуска видео
+        function playVideo() {
             const welcomeScreen = document.getElementById('welcome-screen');
             const videoContainer = document.getElementById('video-container');
 
@@ -159,18 +188,31 @@
             // Показываем видео
             videoContainer.style.display = 'block';
 
-            // Создаем iframe с Rickroll из YouTube
-            // Используем современный URL для встраивания и добавляем autoplay=1
+            // Создаем iframe с Rickroll из YouTube с попыткой включить HD
             videoContainer.innerHTML = `
                 <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&vq=hd720"
                     title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
                 </iframe>
             `;
-        });
+        }
+
+        // Обработчик клика на кнопку
+        document.getElementById('start-button').addEventListener('click', playVideo);
+
+        // Обработчик клика на изображение котика
+        document.getElementById('cat-image').addEventListener('click', playVideo);
+
+        // Обработчик клика на весь body (для удобства, если кликнуть на фон)
+        // document.body.addEventListener('click', function() {
+        //     if (document.getElementById('welcome-screen').style.display !== 'none') {
+        //         playVideo();
+        //     }
+        // });
+
     </script>
 </body>
 </html>

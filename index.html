@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru"> <!-- Изменил язык на русский -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rickroll</title>
+    <title>Ловушка для Рикролла</title> <!-- Обновленный заголовок -->
     <style>
         * {
             margin: 0;
@@ -11,86 +11,82 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%; /* Убедимся, что html и body занимают 100% высоты */
+        }
+
         body {
             background-color: #000;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
             color: #fff;
-            height: 100vh;
+            /* height: 100vh; Убираем, так как html, body уже 100% */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             background-image:
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+                radial-gradient(circle, white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(circle, white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(circle, white, rgba(255,255,255,.1) 2px, transparent 40px);
             background-size: 550px 550px, 350px 350px, 250px 250px;
             animation: backgroundMove 20s linear infinite;
-            cursor: pointer; /* Указываем, что клик работает по всему body */
+            cursor: pointer; /* Курсор для всего body */
         }
 
         #welcome-screen {
             text-align: center;
             z-index: 10;
-            cursor: pointer; /* Указываем, что клик работает */
+            padding: 20px;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон для контраста */
         }
 
         /* Стили для изображения котика */
         #cat-image {
-            max-width: 90vw; /* Максимальная ширина 90% от ширины экрана */
-            max-height: 70vh; /* Максимальная высота 70% от высоты экрана */
-            border-radius: 20px; /* Скругленные углы */
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); /* Свечение */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+            max-width: 90vw;
+            max-height: 50vh;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px; /* Отступ снизу */
         }
 
         #cat-image:hover {
-             transform: scale(1.05); /* Увеличение при наведении */
-             box-shadow: 0 0 40px rgba(255, 255, 255, 0.8); /* Усиление свечения */
+             transform: scale(1.05);
+             box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
         }
 
-
-        /* Скрытие текста, если хочешь только картинку
-        h1, p {
-            display: none;
-        }
-        button {
-             display: none;
-        }
-        */
-
-        /* Если оставляем текст и кнопку, но делаем их круче */
         h1 {
-            font-size: 3rem; /* Немного уменьшил */
+            font-size: 3rem;
             margin-bottom: 15px;
-            text-shadow: 0 0 10px #fff;
+            text-shadow: 0 0 10px #ff0080; /* Розовое свечение */
             animation: pulse 2s infinite;
         }
 
          p {
-            font-size: 1.8rem; /* Немного уменьшил */
+            font-size: 1.8rem;
             margin-bottom: 20px;
-            text-shadow: 0 0 5px #fff;
+            text-shadow: 0 0 5px #00ffff; /* Голубое свечение */
         }
 
         button {
-            background: transparent;
+            background: linear-gradient(45deg, #ff0080, #00ffff); /* Градиентная кнопка */
             color: #fff;
-            border: 2px solid #fff;
-            padding: 12px 25px; /* Немного уменьшил */
-            font-size: 1.3rem; /* Немного уменьшил */
+            border: none; /* Убираем стандартную рамку */
+            padding: 15px 30px;
+            font-size: 1.5rem;
             cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s;
+            border-radius: 30px; /* Круглые углы */
+            transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.7); /* Тень кнопки */
         }
 
         button:hover {
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px #fff;
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(5deg); /* Увеличение и легкий поворот */
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.9); /* Усиленная тень */
         }
 
         #video-container {
@@ -107,12 +103,13 @@
         #video-container iframe {
             width: 100%;
             height: 100%;
+            border: none; /* Убираем рамку iframe */
         }
 
         @keyframes pulse {
-            0% { opacity: 0.3; }
-            50% { opacity: 1; }
-            100% { opacity: 0.3; }
+            0% { opacity: 0.4; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.4; transform: scale(0.95); }
         }
 
         @keyframes backgroundMove {
@@ -135,15 +132,24 @@
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
         }
+
+        /* Стиль для сообщения об ошибке */
+        #error-message {
+            color: red;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            display: none; /* Скрыто по умолчанию */
+        }
     </style>
 </head>
 <body>
     <div id="welcome-screen">
-        <!-- Замените URL ниже на прямую ссылку на изображение котика -->
-        <img src="https://i.imgur.com/sfZqVGY.jpeg" alt="Cute Cat - Click Me!" id="cat-image">
-        <h1>ТЫКОВЕНЬ НА КОТИКА</h1>
-        <p>НЕ ПОЖАЛЕЕШЬ</p>
+        <!-- Замени URL ниже на прямую ссылку на изображение котика -->
+        <img src="https://i.imgur.com/sfZqVGY.jpeg" alt="Милый котик - Нажми!" id="cat-image">
+        <h1>ТЫКОВЕНЬ НА КОТИКА!</h1>
+        <p>НЕ ПОЖАЛЕЕШЬ ;)</p>
         <button id="start-button">ИЛИ НА ЭТУ КНОПОЧКУ</button>
+        <div id="error-message">Упс! Что-то пошло не так. Попробуй перезагрузить страницу.</div>
     </div>
 
     <div id="video-container"></div>
@@ -168,7 +174,8 @@
                 star.style.top = `${Math.random() * 100}%`;
 
                 // Случайная анимация
-                star.style.setProperty('--duration', `${Math.random() * 3 + 1}s`);
+                const duration = Math.random() * 3 + 1;
+                star.style.setProperty('--duration', `${duration}s`);
 
                 body.appendChild(star);
             }
@@ -181,23 +188,37 @@
         function playVideo() {
             const welcomeScreen = document.getElementById('welcome-screen');
             const videoContainer = document.getElementById('video-container');
+            const errorMessage = document.getElementById('error-message');
 
-            // Скрываем приветственный экран
-            welcomeScreen.style.display = 'none';
+            try {
+                // Скрываем приветственный экран
+                welcomeScreen.style.display = 'none';
 
-            // Показываем видео
-            videoContainer.style.display = 'block';
+                // Показываем видео контейнер
+                videoContainer.style.display = 'block';
 
-            // Создаем iframe с Rickroll из YouTube с попыткой включить HD
-            videoContainer.innerHTML = `
-                <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=0&vq=hd720"
-                    title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
-            `;
+                // --- ВАЖНО: ВСТАВЬ СЮДА СВОЮ ССЫЛКУ VK ---
+                const vkVideoUrl = "https://vk.com/video_ext.php?oid=7266823&id=78234740&hash=5a7b8c9d1e2f3a4b&hd=2&autoplay=1";
+
+                // Создаем iframe с видео VK
+                // Используем шаблонные строки (backticks) для корректного формирования HTML
+                videoContainer.innerHTML = `
+                    <iframe
+                        src="${vkVideoUrl}"
+                        title="VK Video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } catch (error) {
+                console.error("Ошибка при попытке воспроизвести видео:", error);
+                // Показываем экран приветствия снова
+                welcomeScreen.style.display = 'block';
+                // Показываем сообщение об ошибке
+                errorMessage.style.display = 'block';
+                // Скрываем видео контейнер на случай, если он был показан
+                videoContainer.style.display = 'none';
+            }
         }
 
         // Обработчик клика на кнопку
@@ -206,9 +227,10 @@
         // Обработчик клика на изображение котика
         document.getElementById('cat-image').addEventListener('click', playVideo);
 
-        // Обработчик клика на весь body (для удобства, если кликнуть на фон)
-        // document.body.addEventListener('click', function() {
-        //     if (document.getElementById('welcome-screen').style.display !== 'none') {
+        // Обработчик клика на весь body (опционально)
+        // document.body.addEventListener('click', function(event) {
+        //     // Проверяем, что клик был именно на body, а не на дочерних элементах
+        //     if (event.target === document.body) {
         //         playVideo();
         //     }
         // });
